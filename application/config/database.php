@@ -59,18 +59,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 
-$active_group = 'default';
+$active_group = 'dev';
 $query_builder = TRUE;
 
+$db['dev']['hostname'] = "127.0.0.1";
+$db['dev']['username'] = "root";
+$db['dev']['password'] = "";
+$db['dev']['database'] = "movie";
+$db['dev']['dbdriver'] = "mysql";
+$db['dev']['dbprefix'] = "";
+$db['dev']['pconnect'] = TRUE;
+$db['dev']['db_debug'] = FALSE;
+$db['dev']['cache_on'] = FALSE;
+$db['dev']['cachedir'] = "";
+$db['dev']['char_set'] = "utf8";
+$db['dev']['dbcollat'] = "utf8_general_ci";
+$db['dev']['swap_pre'] = "";
+$db['dev']['stricton'] = FALSE;
+$db['dev']['encrypt']  = FALSE;
+$db['dev']['compress'] = FALSE;
+$db['dev']['stricton'] = FALSE;
+$db['dev']['failover'] = array();
+$db['dev']['save_queries'] = TRUE;
+$db['dev']['port'] = 3306;
+/**
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => '',
+	'username' => 'root',
 	'password' => '',
-	'database' => '',
-	'dbdriver' => 'mysqli',
+	'database' => 'movie',
+	'dbdriver' => 'mysql',
 	'dbprefix' => '',
-	'pconnect' => FALSE,
+	'pconnect' => TRUE,
 	'db_debug' => TRUE,
 	'cache_on' => FALSE,
 	'cachedir' => '',
@@ -83,3 +104,28 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+*/
+
+/**
+ * online databases config;
+ */
+$db['online']['hostname'] = "123.57.233.39";
+$db['online']['username'] = "root";
+$db['online']['password'] = "mysqlkey";
+$db['online']['database'] = "movie";
+$db['online']['dbdriver'] = "mysql";
+$db['online']['dbprefix'] = "";
+$db['online']['pconnect'] = TRUE;
+$db['online']['db_debug'] = FALSE;
+$db['online']['cache_on'] = FALSE;
+$db['online']['cachedir'] = "";
+$db['online']['char_set'] = "utf8";
+$db['online']['dbcollat'] = "utf8_general_ci";
+$db['online']['swap_pre'] = "";
+$db['online']['stricton'] = FALSE;
+$db['online']['encrypt']  = FALSE;
+$db['online']['compress'] = FALSE;
+$db['online']['stricton'] = FALSE;
+$db['online']['failover'] = array();
+$db['online']['save_queries'] = TRUE;
+$db['online']['port'] = 3306;
