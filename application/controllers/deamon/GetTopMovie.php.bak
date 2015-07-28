@@ -1,0 +1,98 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * Created by PhpStorm.
+ * User: LeoHao
+ * Date: 15/7/25
+ * Time: 下午4:27
+ */
+class GetTopMovie extends CI_Controller{
+
+    // top movie list url
+    const TOP_MOVIE_URL = 'http://movie.douban.com/top250';
+
+    // this is movie detail url
+    const MOVIE_DETAIL_URL = 'http://movie.douban.com/subject/';
+
+    /**
+     * Index Page for this controller.
+     */
+    public function index()
+    {
+        $this->_preg_movie_id_str();
+        $this->_preg_match_all_url();
+        $this->_preg_match_movie_detail();
+    }
+
+    /**
+     * Preg Match Str
+     *
+     * @return $this->preg_str
+     */
+    private function _preg_movie_id_str()
+    {
+        $this->preg_list_str = '<a href="http://movie.douban.com/subject/[0-9]+/">';
+        $this->preg_detail_str = '<a href="http://movie.douban.com/subject/[0-9]+/">';
+    }
+
+    /**
+     * get content for page
+     *
+     * @param $url page url
+     *
+     * @http://movie.douban.com/nowplaying/beijing
+     */
+    private function _get_contents_for_page($url)
+    {
+        $this->get_contents_page = file_get_contents($url);
+    }
+
+    /**
+     * preg match all page url
+     *
+     * @return void
+     */
+    private function _preg_match_all_url()
+    {
+        $this->_get_contents_for_page(self::TOP_MOVIE_URL);
+        preg_match_all($this->preg_list_str, $this->get_contents_page, $this->match_data);
+
+        if (!empty($this->match_data)) {
+            $this->_get_unique_id($this->match_data[0]);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * preg match movie detail page
+     *
+     * @return void
+     */
+    private function _preg_match_movie_detail()
+    {
+        if (!empty($this->top_movie_id)) {
+            foreach ($this->top_movie_id as $movie_id) {
+                $this->_get_contents_for_page(self::MOVIE_DETAIL_URL.$movie_id);
+                var_dump($this->get_contents_page);die;
+                preg_match_all($this->preg_detail_str, $this->get_contents_page, $this->match_detail);
+            }
+        }
+    }
+
+
+
+    /**
+     * get unique id for match data
+     *
+     * @return void
+     */
+    private function _get_unique_id($match_arr) {
+        $unique_match_arr = array_unique($match_arr);
+        $this->top_movie_id = array();
+        foreach ($unique_match_arr as $index => $movie_url) {
+            $part_url = explode('/',$movie_url);
+            array_pop($part_url);
+            array_push($this->top_movie_id, $part_url[count($part_url)-1]);
+        }
+    }
+}

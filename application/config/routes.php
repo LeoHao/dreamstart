@@ -53,3 +53,4 @@ $route['default_controller'] = 'test';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['test'] = 'test';
+$route['get_top_movie'] = 'deamon/getTopMovie';
