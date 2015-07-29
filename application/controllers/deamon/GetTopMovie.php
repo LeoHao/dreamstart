@@ -55,7 +55,6 @@ class GetTopMovie extends CI_Controller{
         $this->load->model('genres', 'genres_model', TRUE);
         foreach ($this->get_contents_page->subjects as $top_index => $movie_detail) {
             $this->movies_model->douban_id = $movie_detail->id;
-            var_dump($this->movies_model);die;
             if (!$this->movies_model->isExistMovie()) {
                 $genres_id = array();
                 foreach ($movie_detail->genres as $simple_genres) {
