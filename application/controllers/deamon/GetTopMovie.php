@@ -51,8 +51,8 @@ class GetTopMovie extends CI_Controller{
      * @return void
      */
     private function _disposeMovieData() {
-        $this->load->model('movies', 'movies_model', TRUE);
-        $this->load->model('genres', 'genres_model', TRUE);
+        $this->load->model('Movies_model', 'movies_model', TRUE);
+        $this->load->model('Genres_model', 'genres_model', TRUE);
         foreach ($this->get_contents_page->subjects as $top_index => $movie_detail) {
             $this->movies_model->douban_id = $movie_detail->id;
             if (!$this->movies_model->isExistMovie()) {

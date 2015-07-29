@@ -5,7 +5,7 @@
  * Date: 15/7/28
  * Time: 下午3:47
  */
-class Movies extends CI_Model
+class Movies_model extends CI_Model
 {
     /**
      * 基本字段
