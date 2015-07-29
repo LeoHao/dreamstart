@@ -51,26 +51,27 @@ class GetTopMovie extends CI_Controller{
      * @return void
      */
     private function _disposeMovieData() {
-        $this->load->model('Movies');
-        $this->load->model('Genres');
+        $this->load->model('movies', 'movies_model', TRUE);
+        $this->load->model('genres', 'genres_model', TRUE);
         foreach ($this->get_contents_page->subjects as $top_index => $movie_detail) {
-            $this->Movies->douban_id = $movie_detail->id;
-            if (!$this->Movies->isExistMovie()) {
+            $this->movies_model->douban_id = $movie_detail->id;
+            var_dump($this->movies_model);die;
+            if (!$this->movies_model->isExistMovie()) {
                 $genres_id = array();
                 foreach ($movie_detail->genres as $simple_genres) {
-                    $this->Genres->name = $simple_genres;
-                    if ($exist_genres = $this->Genres->isExistGenres()) {
+                    $this->genres_model->name = $simple_genres;
+                    if ($exist_genres = $this->genres_model->isExistGenres()) {
                         array_push($genres_id, $exist_genres->id);
                     } else {
-                        $insert_id = $this->Genres->insertGenresData();
+                        $insert_id = $this->genres_model->insertGenresData();
                         array_push($genres_id, $insert_id);
                     }
                 }
-                $this->Movies->section = 'top';
-                $this->Movies->name = $movie_detail->title;
-                $this->Movies->genres_id = implode(',', $genres_id);
-                $this->Movies->created_at = date('Y-m-d H:i:s', time());
-                $this->Movies->insertMovieData();
+                $this->movies_model->section = 'top';
+                $this->movies_model->name = $movie_detail->title;
+                $this->movies_model->genres_id = implode(',', $genres_id);
+                $this->movies_model->created_at = date('Y-m-d H:i:s', time());
+                $this->movies_model->insertMovieData();
             }
         }
         sleep(60);
